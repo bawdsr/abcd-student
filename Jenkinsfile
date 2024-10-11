@@ -35,6 +35,7 @@ pipeline {
                 '''
                 sh '''
                 docker cp /mnt/c/Users/baw.DSR/ABCD/reports/zap_xml_report.xml abcd-lab:/tmp/zap_xml_report.xml
+                '''
             }
         }
     }   
