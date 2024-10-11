@@ -16,8 +16,8 @@ pipeline {
             steps {
                 sh '''
                     docker run --name zap \
-                    -v C:/Users/baw.DSR/ABCD/abcd-student/.zap:/zap/wrk:rw \
-                    -v C:/Users/baw.DSR/ABCD/reports:/zap/wrk/reports \
+                    -v "${WORKSPACE}/abcd-student/.zap:/zap/wrk:rw" \
+                    -v "${WORKSPACE}/reports:/zap/wrk/reports" \
                     -t ghcr.io/zaproxy/zaproxy:stable bash -c \\
                     "zap.sh -cmd -addonupdate && \\
                     zap.sh -cmd -addoninstall communityScripts && \\
@@ -29,4 +29,3 @@ pipeline {
         }
     }
 }
-
