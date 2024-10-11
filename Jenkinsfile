@@ -20,7 +20,7 @@ pipeline {
                 sleep 5
                 '''
                 sh '''
-                    docker run --name zap \
+                    docker run --name zap --rm\
                     -v /mnt/c/Users/baw.DSR/ABCD/abcd-student/.zap:/zap/wrk:rw \
                     -v /mnt/c/Users/baw.DSR/ABCD/reports:/zap/wrk/reports \
                     -t ghcr.io/zaproxy/zaproxy:stable bash -c \\
