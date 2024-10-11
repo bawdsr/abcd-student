@@ -33,13 +33,15 @@ pipeline {
                 sh '''
                 docker stop juice-shop
                 '''
+                sh '''
+                docker cp /mnt/c/Users/baw.DSR/ABCD/reports/zap_xml_report.xml abcd-lab:/tmp/zap_xml_report.xml
             }
         }
     }   
     post {
         always {
             defectDojoPublisher(
-                artifact: '/mnt/c/Users/baw.DSR/ABCD/reports/zap_xml_report.xml', 
+                artifact: '/tmp/zap_xml_report.xml', 
                 productName: 'Juice Shop', 
                 scanType: 'ZAP Scan', 
                 engagementName: 'bartosz.wlazlo@dsr.com.pl'
