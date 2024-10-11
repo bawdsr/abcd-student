@@ -12,7 +12,7 @@ pipeline {
                 }
             }
         }
-        stage('ZAP Scan - DAST') {
+        stage('ZAP Scan') {
             steps {
                 sh '''
                 docker run --name juice-shop -d --rm \
@@ -35,13 +35,15 @@ pipeline {
                 '''
             }
         }
-        post {
-            always {
-                defectDojoPublisher(artifact: '/mnt/c/Users/baw.DSR/ABCD/reports/zap_xml_report.xml', 
-                    productName: 'Juice Shop', 
-                    scanType: 'ZAP Scan', 
-                    engagementName: 'bartosz.wlazlo@dsr.com.pl')
-            }
-        }
     }   
+    post {
+        always {
+            defectDojoPublisher(
+                artifact: '/mnt/c/Users/baw.DSR/ABCD/reports/zap_xml_report.xml', 
+                productName: 'Juice Shop', 
+                scanType: 'ZAP Scan', 
+                engagementName: 'bartosz.wlazlo@dsr.com.pl'
+            )
+        }
+    }
 }
