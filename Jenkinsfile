@@ -40,27 +40,27 @@ pipeline {
             }
         }
     }   
-    // post {
-    //     always {
-    //         // sh '''
-    //         //     mkdir -p ${WORKSPACE}/results/
-    //         //     docker cp zap:/zap/wrk/reports/zap_html_report.html ${WORKSPACE}/results/zap_html_report.html
-    //         //     docker cp zap:/zap/wrk/reports/zap_xml_report.xml ${WORKSPACE}/results/zap_xml_report.xml
-    //         //     docker stop zap juice-shop
-    //         //     docker rm zap
-    //         //     '''
-    //         // defectDojoPublisher(
-    //         //     artifact: '${WORKSPACE}/results/zap_xml_report.xml', 
-    //         //     productName: 'Juice Shop', 
-    //         //     scanType: 'ZAP Scan', 
-    //         //     engagementName: 'bartosz.wlazlo@dsr.com.pl'
-    //         // )
-    //         // defectDojoPublisher(
-    //         //     artifact: '${WORKSPACE}/osvscanner-report.json', 
-    //         //     productName: 'Juice Shop', 
-    //         //     scanType: 'OSV Scan', 
-    //         //     engagementName: 'bartosz.wlazlo@dsr.com.pl'
-    //         // )
-    //     }
-    // }
+    post {
+        always {
+            // sh '''
+            //     mkdir -p ${WORKSPACE}/results/
+            //     docker cp zap:/zap/wrk/reports/zap_html_report.html ${WORKSPACE}/results/zap_html_report.html
+            //     docker cp zap:/zap/wrk/reports/zap_xml_report.xml ${WORKSPACE}/results/zap_xml_report.xml
+            //     docker stop zap juice-shop
+            //     docker rm zap
+            //     '''
+            // defectDojoPublisher(
+            //     artifact: '${WORKSPACE}/results/zap_xml_report.xml', 
+            //     productName: 'Juice Shop', 
+            //     scanType: 'ZAP Scan', 
+            //     engagementName: 'bartosz.wlazlo@dsr.com.pl'
+            // )
+            defectDojoPublisher(
+                artifact: '${WORKSPACE}/osvscanner-report.json', 
+                productName: 'Juice Shop', 
+                scanType: 'OSV Scan', 
+                engagementName: 'bartosz.wlazlo@dsr.com.pl'
+            )
+        }
+    }
 }
