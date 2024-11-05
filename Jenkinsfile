@@ -32,13 +32,20 @@ pipeline {
         //         '''
         //     }
         // }
-        stage('OSV-scanner Scan') {
+        // stage('OSV-scanner Scan') {
+        //     steps {
+        //         sh '''
+        //             osv-scanner --lockfile package-lock.json --format json --output osvscanner-report.json
+        //         '''
+        //     }
+        // }
+        stage('Trufflehog Scan') {
             steps {
                 sh '''
-                    osv-scanner --lockfile package-lock.json --format json --output osvscanner-report.json
+                    trufflehog git file://. --force-skip-archives --json > trufflehog_results.json
                 '''
             }
-        }
+        }        
     }   
     post {
         always {
@@ -55,10 +62,16 @@ pipeline {
             //     scanType: 'ZAP Scan', 
             //     engagementName: 'bartosz.wlazlo@dsr.com.pl'
             // )
+            // defectDojoPublisher(
+            //     artifact: '${WORKSPACE}/osvscanner-report.json', 
+            //     productName: 'Juice Shop', 
+            //     scanType: 'OSV Scan', 
+            //     engagementName: 'bartosz.wlazlo@dsr.com.pl'
+            // )
             defectDojoPublisher(
-                artifact: '${WORKSPACE}/osvscanner-report.json', 
+                artifact: '${WORKSPACE}/trufflehog_results.json', 
                 productName: 'Juice Shop', 
-                scanType: 'OSV Scan', 
+                scanType: 'Trufflehog Scan', 
                 engagementName: 'bartosz.wlazlo@dsr.com.pl'
             )
         }
