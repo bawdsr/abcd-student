@@ -42,7 +42,7 @@ pipeline {
         stage('Trufflehog Scan') {
             steps {
                 sh '''
-                    trufflehog git file://. --force-skip-archives --json > trufflehog_results.json
+                    trufflehog git file://. --json > trufflehog_results.json
                 '''
             }
         }        
